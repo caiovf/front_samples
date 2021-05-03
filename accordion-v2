@@ -1,0 +1,136 @@
+<div class="box-acordeao">
+  <div class="acordeao-item">
+      <div class="acordeao-header">
+          <h3>Titulo 1</h3>
+          <div class="icon"></div>
+      </div>
+      <div class="acordeao-content">          
+        <div class="section-text-volta-vieira">
+            <p>Lorem Ipsum Dolor sit amet</p>
+        </div>
+      </div>
+  </div>
+</div>
+
+// Sass version
+
+.acordeao-item {
+    position: relative;
+    cursor: pointer;
+
+    &:last-child,
+    &.active {
+
+        .acordeao-header {
+            border-bottom-color: rgba(#ffffff,.0);
+        }
+    }
+
+    &.active {
+        cursor: initial;
+
+        .acordeao-header .icon {
+            
+            &:after {
+                width: 0%;
+            }
+        }
+    }
+
+    .acordeao-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 23px 0;
+        border-bottom: 1px solid rgba(#ffffff,.3);
+        transition: border-bottom 350ms;
+        cursor: pointer;
+
+        &:hover {
+
+            h3 {
+                color: #000000;
+            }
+
+            .icon {
+                background: #000000;
+            }
+        }
+
+        h3 {
+            margin: 0;
+            text-transform: uppercase;
+            font-size: 1rem;
+            font-weight: 900;
+            color: #ffffff;
+            transition: color 350ms;
+        }
+
+        .icon {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background: #FAA865;
+            border-radius: 100%;
+            transition: background 350ms;
+
+            &:before,
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 55%;
+                height: 4px;
+                background: #ffffff;
+                border-radius: 5px;
+                transform: translate(-50%,-50%);
+                transition: width 350ms;
+            }
+
+            &:after {
+                transform: translate(-50%,-50%) rotateZ(90deg);
+            }
+        }
+    }
+
+    .acordeao-content {        
+        
+        .section-text {
+            padding-bottom: 20px;
+
+            h1,h2,h3,h4,h5,h6{
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+// jQuery
+
+if($(".box-acordeao").length > 0){
+            
+      let acordeaoItem = $('.acordeao-item');
+      // let acordeaoFirstItem = acordeaoItem.first();
+
+      $('.acordeao-header').click(function(){
+          let self = $(this);
+          let selfParent = self.closest('.acordeao-item');
+          let content = selfParent.find('.acordeao-content');
+          // let acordeaoItemPrev = selfParent.prev();
+
+          // acordeaoItem.removeClass('active');
+          // $('.acordeao-content').slideUp();
+
+          selfParent.toggleClass('active');
+          content.stop().slideToggle();
+
+          $([document.documentElement, document.body]).animate({
+              scrollTop: selfParent.offset().top
+          }, 500);
+      })
+
+      acordeaoItem.find('.acordeao-content').slideUp();
+      // acordeaoFirstItem.addClass('active');
+      // acordeaoFirstItem.find('.acordeao-content').slideDown();
+  }
